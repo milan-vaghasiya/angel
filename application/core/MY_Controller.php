@@ -20,7 +20,7 @@ class MY_Controller extends CI_Controller{
 	public $automotiveArray = ["1" => 'Yes', "2" => "No"];
 	public $vendorTypes = ['Manufacture', 'Service'];
 
-	public $itemTypes = [1 => "Finish Goods", 2 => "Consumable", 3 => "Raw Material",4 => "Assets", 5 => "Machineries",6 => "Gauges Instruments",7 => "Die Blocks", 9 => "Packing Material"/* , 4 => "Capital Goods", 6 => "Instruments", 7 => "Gauges", 8 => "Service Items", 10 => "Scrap" */];
+	public $itemTypes = [1 => "Finish Goods", 2 => "Consumable", 3 => "Raw Material",4 => "Assets", 5 => "Machineries",6 => "Gauges Instruments",7 => "Semi Finish", 9 => "Packing Material"/* , 4 => "Capital Goods", 6 => "Instruments", 7 => "Gauges", 8 => "Service Items", 10 => "Scrap" */];
 	public $stockTypes = [0=>"None",1=>'Batch Wise',2=>"Serial Wise"];
 	public $fgColorCode = ["WHITE"=>"W","GREY"=>"G"];
 	public $fgCapacity = ["3 TON"=>"3T","5 TON"=>"5T"];

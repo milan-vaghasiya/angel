@@ -157,18 +157,18 @@ function getMasterDtHeader($page){
     $data['gauges_instruments'][] = ["name"=>"Created By/At"];
     $data['gauges_instruments'][] = ["name"=>"Updated By/At"];
 
-    /* Die Blocks Header */
-    $data['die_blocks'][] = ["name"=>"Action","class"=>"text-center no_filter noExport","sortable"=>FALSE];
-    $data['die_blocks'][] = ["name"=>"#","class"=>"text-center no_filter","sortable"=>FALSE];
-    $data['die_blocks'][] = ["name"=>"Item Code"];
-    $data['die_blocks'][] = ["name"=>"Item Name"];
-    $data['die_blocks'][] = ["name"=>"Material Grade"];
-    $data['die_blocks'][] = ["name"=>"Category"];
-    $data['die_blocks'][] = ["name"=>"UOM"];
-    $data['die_blocks'][] = ["name"=>"HSN Code"];
-    $data['die_blocks'][] = ["name"=>"GST (%)"];
-    $data['die_blocks'][] = ["name"=>"Created By/At"];
-    $data['die_blocks'][] = ["name"=>"Updated By/At"];
+    /* Semi Finish Header */
+    $data['semi_finish'][] = ["name"=>"Action","class"=>"text-center no_filter noExport","sortable"=>FALSE];
+    $data['semi_finish'][] = ["name"=>"#","class"=>"text-center no_filter","sortable"=>FALSE];
+    $data['semi_finish'][] = ["name"=>"Item Code"];
+    $data['semi_finish'][] = ["name"=>"Item Name"];
+    $data['semi_finish'][] = ["name"=>"Category"];
+    $data['semi_finish'][] = ["name"=>"UOM"];
+    $data['semi_finish'][] = ["name"=>"HSN Code"];
+    $data['semi_finish'][] = ["name"=>"GST (%)"];
+	$data['semi_finish'][] = ["name"=>"MFG Status"];
+    $data['semi_finish'][] = ["name"=>"Created By/At"];
+    $data['semi_finish'][] = ["name"=>"Updated By/At"];
 	
 	/* Packing Material Header */
     $data['packing_material'][] = ["name"=>"Action","class"=>"text-center no_filter noExport","sortable"=>FALSE];
@@ -303,7 +303,7 @@ function getProductData($data){
     
 	$printButton =""; $activityButton = "";
     
-    if($data->item_type == 1){
+    if(in_array($data->item_type,[1,7])){
         $printParam = "{'postData':{'item_id' : ".$data->id."}, 'modal_id' : 'modal-md', 'form_id' : 'cpPrint', 'title' : 'Print Control Plan','call_function':'printControlPlan','button':'close'}";
         $printButton = '<a class="btn btn-dribbble btn-edit permission-modify" href="javascript:void(0)" datatip="Print Control Plan" flow="down" onclick="modalAction('.$printParam.');"><i class="fas fa-print" ></i></a>';
     }elseif($data->item_type == 5 && $data->prev_maint_req == 'Yes'){
@@ -312,7 +312,7 @@ function getProductData($data){
     }
 
     $action = getActionButton($activityButton.$printButton.$editButton.$deleteButton);
-    if($data->item_type == 1){
+    if(in_array($data->item_type,[1,7])){
         $data->item_name = '<a href="'.base_url("items/itemDetails/".$data->id).'" datatip="View Item Details" flow="down">'.$data->item_name.'</a>';
     }
 	
@@ -327,8 +327,6 @@ function getProductData($data){
         return [$action,$data->sr_no,$data->item_code,$data->item_name,$data->material_grade,$data->category_name,$data->uom,$data->hsn_code,floatVal($data->gst_per),$createdBy,$updatedBy];
     elseif($data->item_type == 4):
 		return [$action,$data->sr_no,$data->item_code,$data->item_name,$data->category_name,$data->uom,$data->hsn_code,floatVal($data->gst_per),$createdBy,$updatedBy];
-	elseif($data->item_type == 7):
-        return [$action,$data->sr_no,$data->item_code,$data->item_name,$data->material_grade,$data->category_name,$data->uom,$data->hsn_code,floatVal($data->gst_per),$createdBy,$updatedBy];
     elseif(in_array($data->item_type,[2,9])):  
         return [$action,$data->sr_no,$data->item_code,$data->item_name,$data->category_name,$data->uom,$data->hsn_code,floatVal($data->gst_per),$createdBy,$updatedBy];
     else:

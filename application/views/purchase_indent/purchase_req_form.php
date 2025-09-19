@@ -19,6 +19,34 @@
 
 			<div class="col-md-12 form-group">
                 <label for="item_id">Item </label>
+                <div class="float-right">	
+                    <span class="dropdown float-right">
+                        <a class="text-primary font-bold waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" datatip="Progress" flow="down">+ Add New</a>
+
+                        <div class="dropdown-menu dropdown-menu-left user-dd animated flipInY" x-placement="start-left">
+                            <div class="d-flex no-block align-items-center p-10 bg-primary text-white">ACTION</div>
+                            
+                            <?php
+                                $productParam = "{'postData':{'item_type':1},'modal_id' : 'bs-left-lg-modal','controller':'items', 'call_function':'addItem', 'form_id' : 'addItem', 'title' : 'Add Product','res_function':'resItemMaster','js_store_fn':'customStore'}";
+
+                                $rmParam = "{'postData':{'item_type':3},'modal_id' : 'bs-left-lg-modal','controller':'items', 'call_function':'addItem', 'form_id' : 'addItem', 'title' : 'Add Raw Material','res_function':'resItemMaster','js_store_fn':'customStore'}";
+
+                                $conParam = "{'postData':{'item_type':2},'modal_id' : 'bs-left-lg-modal','controller':'items', 'call_function':'addItem', 'form_id' : 'addItem', 'title' : 'Add Consumable','res_function':'resItemMaster','js_store_fn':'customStore'}";
+
+                                $serviceParam = "{'postData':{'item_type':8},'modal_id' : 'bs-left-lg-modal','controller':'items', 'call_function':'addItem', 'form_id' : 'addItem', 'title' : 'Add Service Item','res_function':'resItemMaster','js_store_fn':'customStore'}";
+
+                                $machineParam = "{'postData':{'item_type':5},'modal_id' : 'bs-left-lg-modal','controller':'items', 'call_function':'addItem', 'form_id' : 'addItem', 'title' : 'Add Machineries','res_function':'resItemMaster','js_store_fn':'customStore'}";
+                            ?>
+                            <button type="button" class="dropdown-item" onclick="modalAction(<?=$productParam?>);"><i class="fa fa-plus"></i> Product</button>
+
+                            <button type="button" class="dropdown-item" onclick="modalAction(<?=$rmParam?>);"><i class="fa fa-plus"></i> Raw Material</button>
+
+                            <button type="button" class="dropdown-item" onclick="modalAction(<?=$conParam?>);"><i class="fa fa-plus"></i> Consumable</button>
+
+                            <button type="button" class="dropdown-item" onclick="modalAction(<?=$machineParam?>);"><i class="fa fa-plus"></i> Machineries</button>
+                        </div>
+                    </span>
+                </div>
                 <select name="item_id" id="item_id" class="form-control select2 req">
                     <option value="">Select Item</option>
                     <?php 

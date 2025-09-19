@@ -60,7 +60,7 @@ class Items extends MY_Controller{
         $this->data['hsnData'] = $this->hsnModel->getHSNList();
         $this->data['materialGrade'] = $this->materialGrade->getMaterialGrades();
 		
-        if($data['item_type'] == 1){
+        if(in_array($data['item_type'],[1,7])){
 			$this->data['party_id'] = (!empty($data['party_id']) ?  $data['party_id'] : 0);
             $this->data['is_active'] = (!empty($data['is_active']) ? $data['is_active'] : '1');
 			$this->data['partyList'] = $this->party->getPartyList(['party_category'=>1]);
@@ -80,8 +80,6 @@ class Items extends MY_Controller{
             $this->load->view($this->machineForm,$this->data);
         }elseif($data['item_type'] == 6){
             $this->load->view($this->gauge_instr_form,$this->data);
-        }elseif($data['item_type'] == 7){
-            $this->load->view($this->dieBlockForm,$this->data);
         }elseif($data['item_type'] == 9){
             $itemCode = $this->item->getItemCode(9);
             $this->data['item_code'] = 'P'.lpad($itemCode, '5', '0');
@@ -164,7 +162,7 @@ class Items extends MY_Controller{
         $this->data['hsnData'] = $this->hsnModel->getHSNList();
         $this->data['materialGrade'] = $this->materialGrade->getMaterialGrades();
 
-        if($itemDetail->item_type == 1){
+        if(in_array($itemDetail->item_type,[1,7])){
 			$this->data['partyList'] = $this->party->getPartyList(['party_category'=>1]);
 			/* $this->data['tcHeadList'] = $this->testType->getTypeList(); */
             $this->load->view($this->fgForm,$this->data);
@@ -178,8 +176,6 @@ class Items extends MY_Controller{
             $this->load->view($this->machineForm,$this->data);
         }elseif($itemDetail->item_type == 6){
             $this->load->view($this->gauge_instr_form,$this->data);
-        }elseif($itemDetail->item_type == 7){
-            $this->load->view($this->dieBlockForm,$this->data);
         }elseif($itemDetail->item_type == 9){
             $this->load->view($this->packingForm,$this->data);
         }else{

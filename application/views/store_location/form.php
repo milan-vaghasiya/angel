@@ -54,10 +54,23 @@
 <!-- Create By : Karmi  -->
 <script type="text/javascript">
 $(document).ready(function(){
-    $("#inputStoreName").hide();
-    setTimeout(function(){
-        $('#ref_id').trigger('change');
-    }, 1000);
+    // $("#inputStoreName").hide();
+    // setTimeout(function(){
+    //     $('#ref_id').trigger('change');
+    // }, 1000);
+
+    let get_ref_id = '<?= $dataRow->ref_id ?? 0;?>';
+    if($('#id').val() == '') {
+        $("#selectStoreName").show(); 
+        $("#inputStoreName").hide();
+    }
+    else if(get_ref_id == 0){
+        $("#selectStoreName").hide(); 
+        $("#inputStoreName").show(); 
+    } else {
+        $("#selectStoreName").show(); 
+        $("#inputStoreName").hide();
+    }
     
     $(document).on('change','#ref_id',function(){
 		var ref_id = $(this).val();

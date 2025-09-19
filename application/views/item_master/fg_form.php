@@ -90,7 +90,7 @@
 					<option value="">Select MFG Status</option>
 					<option value="Prototype" <?= ((!empty($dataRow->mfg_status) && $dataRow->mfg_status == "Prototype")?"selected":"");?>>Prototype</option>
 					<option value="Pre Launch" <?= ((!empty($dataRow->mfg_status) && $dataRow->mfg_status == "Pre Launch")?"selected":"");?>>Pre Launch</option>
-					<option value="Reguler" <?= ((!empty($dataRow->mfg_status) && $dataRow->mfg_status == "Reguler")?"selected":"");?>>Reguler</option>
+					<option value="Regular" <?= ((!empty($dataRow->mfg_status) && $dataRow->mfg_status == "Regular")?"selected":"");?>>Regular</option>
 				</select>
             </div>
 			
