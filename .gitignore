@@ -1,0 +1,32 @@
+*/config/development
+*/logs/log-*.php
+!*/logs/index.html
+*/cache/*
+!system/cache/*
+!*/cache/index.html
+!*/cache/.htaccess
+
+user_guide_src/build/*
+user_guide_src/cilexer/build/*
+user_guide_src/cilexer/dist/*
+user_guide_src/cilexer/pycilexer.egg-info/*
+
+# Composer
+/vendor/
+composer.lock
+
+# CodeIgniter specific
+/application/cache/*
+!/application/cache/index.html
+/application/logs/*
+!/application/logs/index.html
+/application/config/constants.php
+/application/config/database.php
+
+# Environment specific
+.env
+.env.*.local
+
+# Other generated files
+/assets/uploads/*
+!/assets/uploads/index.html
