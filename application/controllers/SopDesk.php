@@ -111,7 +111,7 @@ class SopDesk extends MY_Controller{
 		if(!empty($data['party_id'])){
 			$result = $this->salesOrder->getPendingOrderItems(['party_id'=>$data['party_id'],'is_approve'=>1,'prc_type'=>1,'trans_status'=>0]); 
 		}else{
-			$result = $this->item->getItemList(['item_type'=>1]);
+			$result = $this->item->getItemList(['item_type' => [1,7]]);
 		}
 		$selected='';
 		$options='<option value="">Select Product</option>';
