@@ -74,6 +74,10 @@ class StoreLocationModel extends MasterModel{
                 return ['status'=>0,'message'=>$errorMessage];
             endif;
 
+            //Updating a store name that is linked to a location
+            if(!empty($data['id']) && ($data['ref_id'] == '' || $data['ref_id'] == 0)){
+				$this->edit($this->locationMaster,['ref_id' => $data['id']],['store_name' => $data['store_name']]);
+            }
             $result = $this->store($this->locationMaster,$data,'Store Location');
 
             if ($this->db->trans_status() !== FALSE):
@@ -103,6 +107,7 @@ class StoreLocationModel extends MasterModel{
             $this->db->trans_begin();
 
             $checkData['columnName'] = ["location_id"];
+            $checkData['columnName'] = ["ref_id"];
             $checkData['value'] = $id;
             $checkUsed = $this->checkUsage($checkData);
 
