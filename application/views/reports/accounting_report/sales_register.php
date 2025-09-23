@@ -6,31 +6,30 @@
 				<div class="page-title-box">
 					<div class="float-end" style="width:50%;">
 					    <div class="input-group ">
-                                <div class="input-group-append" style="width:20%;">
-                                    <select id="report_type" name="report_type" class="form-control select2">
-                                        <option value="1">Bill Wise</option>
-                                        <option value="2">Item Wise</option>
-                                    </select>
-                                </div>
-                                <div class="input-group-append" style="width:20%;">
-                                    <select id="state_code" name="state_code" class="form-control select2">
-                                        <option value="">All States</option>
-                                        <option value="1">IntraState</option>
-                                        <option value="2">InterState</option>
-                                    </select>
-                                </div>
-                                <input type="date" name="from_date" id="from_date" class="form-control" value="<?=$startDate?>" />
-                                <input type="date" name="to_date" id="to_date" class="form-control" value="<?=$endDate?>" />
-                                <div class="input-group-append">
-                                    <button type="button" class="btn waves-effect waves-light btn-success float-right refreshReportData loadData" title="Load Data">
-                                        <i class="fas fa-sync-alt"></i> Load
-                                    </button>
-                                </div>
+                            <div class="input-group-append" style="width:20%;">
+                                <select id="report_type" name="report_type" class="form-control select2">
+                                    <option value="1">Bill Wise</option>
+                                    <option value="2">Item Wise</option>
+                                </select>
                             </div>
+                            <div class="input-group-append" style="width:20%;">
+                                <select id="state_code" name="state_code" class="form-control select2">
+                                    <option value="">All States</option>
+                                    <option value="1">IntraState</option>
+                                    <option value="2">InterState</option>
+                                </select>
                             </div>
-                            <div class="error fromDate"></div>
-                            <div class="error toDate"></div>
+                            <input type="date" name="from_date" id="from_date" class="form-control" value="<?=$startDate?>" />
+                            <input type="date" name="to_date" id="to_date" class="form-control" value="<?=$endDate?>" />
+                            <div class="input-group-append">
+                                <button type="button" class="btn waves-effect waves-light btn-success float-right refreshReportData loadData" title="Load Data">
+                                    <i class="fas fa-sync-alt"></i> Load
+                                </button>
+                            </div>
                         </div>
+                        </div>
+                        <div class="error fromDate"></div>
+                        <div class="error toDate"></div>
 					</div>
 				</div>
             </div>

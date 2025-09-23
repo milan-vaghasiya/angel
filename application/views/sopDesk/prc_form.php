@@ -15,7 +15,7 @@
 			</div>
 			<div class="col-md-4 form-group">
 				<label for="target_date">Target Date</label>
-				<input type="date" id="target_date" name="target_date" class="form-control req" value="<?= (!empty($dataRow->target_date)) ? $dataRow->target_date : date("Y-m-d") ?>" />
+				<input type="date" id="target_date" name="target_date" class="form-control req" value="<?= (!empty($dataRow->cod_date)) ? $dataRow->cod_date : date("Y-m-d") ?>" />
 			</div>
 			<div class="col-md-4 form-group">
 				<label for="party_id">Customer</label>

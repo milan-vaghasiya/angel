@@ -2347,5 +2347,12 @@ class SopModel extends MasterModel{
 
 	}
 
+	public function getDeliveryDate($id){
+		$queryData['tableName'] = 'so_trans';
+        $queryData['select'] = "id,cod_date ";
+		$queryData['where']['id'] = $id;
+		return $this->row($queryData);
+    }
+
 }
 ?>

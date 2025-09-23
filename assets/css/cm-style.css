@@ -74,7 +74,8 @@ span.multiselect-native-select select {
 	position: absolute;
 	list-style-type: none;
 	margin: 0;
-	padding: 0
+	padding: 0;
+  overflow-x: auto;
 }
 .multiselect-container .input-group {
 	margin: 5px

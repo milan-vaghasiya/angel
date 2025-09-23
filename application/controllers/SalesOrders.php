@@ -171,7 +171,7 @@ class SalesOrders extends MY_Controller{
         $logo = (!empty($companyData->print_header))?base_url("assets/uploads/company_logo/".$companyData->company_logo):base_url('assets/images/logo.png');
         $this->data['letter_head'] =  (!empty($companyData->print_header))?base_url("assets/uploads/company_logo/".$companyData->print_header):base_url('assets/images/letterhead_top.png');
        
-        if($data['pdf_type'] == "Internal"){
+        if(!empty($data['pdf_type']) && $data['pdf_type'] == "Internal"){
             $pdfData = $this->load->view('sales_order/internal_print', $this->data, true);    //Internal Print
         }else{
             $pdfData = $this->load->view('sales_order/print', $this->data, true);     

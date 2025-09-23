@@ -117,9 +117,11 @@ class TaskManager extends MY_Controller{
     public function getTaskList(){
         $postData = $this->input->post();
 		
-		if($postData['group_id'] > 0){
+		if($postData['group_id'] > 0){			
+			$editParam = "{'postData':{'id' : ".$postData['group_id']."},'modal_id' : 'modal-md', 'form_id' : 'addGroup', 'title' : 'Edit Group','call_function':'addGroup','fnsave' : 'saveGroup','res_function' : 'getGroupList','form_close' : 'close'}";
+
 			$groupHead = '<h4>'.$postData['group_name'].' 
-					<span class="text-success pl-2 permission-approve addNewGroup" data-button="both" data-group_id="'.$postData['group_id'].'" data-modal_id="modal-md" data-function="addGroup" data-controller="taskManager" data-form_title="Add Group" data-fnsave="saveGroup"><i class="fa fa-edit"></i></span>
+					<span class="text-success pl-2 permission-approve1 addNewGroup" data-button="both" data-group_id="'.$postData['group_id'].'" data-modal_id="modal-md" data-function="addGroup" data-controller="taskManager" data-form_title="Add Group" data-fnsave="saveGroup" onclick="modalAction('.$editParam.');"><i class="fa fa-edit"></i></span>
 			</h4> <span>Here is the list of Task</span>';
 		}
 		elseif($postData['group_id'] == 0){ $groupHead = '<h4> Assigned To Me </h4> <span>Here is the list of Task</span>'; }

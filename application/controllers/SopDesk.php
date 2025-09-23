@@ -91,16 +91,19 @@ class SopDesk extends MY_Controller{
         $this->data['customerData'] = $this->salesOrder->getPendingOrderItems(['group_by'=>'party_id','is_approve'=>1,'prc_type'=>1,'trans_status'=>0]);
         $this->data['brandList'] = $this->selectOption->getSelectOptionList(['type'=>8]);
 		if(!empty($data['so_trans_id'])){
+			$getDeliveryDate = $this->sop->getDeliveryDate($data['so_trans_id']);
+
 			$dataRow = new stdClass();
 			$dataRow->party_id = $data['party_id'];
 			$dataRow->so_trans_id = $data['so_trans_id'];
 			$dataRow->brand_id = $data['brand_id'];
 			$dataRow->item_id = $data['item_id'];
+			$dataRow->cod_date = $getDeliveryDate->cod_date;
 			$this->data['dataRow'] = $dataRow;
 			$this->data['productData'] = $this->getProductList(['party_id'=>$dataRow->party_id,'item_id'=>$dataRow->item_id]);
 			$prdDetail = $this->getItemRevList(['item_id'=>$dataRow->item_id]);
 			$this->data['revisionData'] = $prdDetail['revHtml'];
-		}
+		}		
         $this->load->view('sopDesk/prc_form',$this->data);
 	}
 	

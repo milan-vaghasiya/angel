@@ -216,8 +216,6 @@
 								<label for="item_id">Product Name</label>
 
                                 <span class="dropdown float-right">
-                                    <a class="text-primary font-bold waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" datatip="Progress" flow="down">+ Add New</a>
-
                                     <div class="dropdown-menu dropdown-menu-left user-dd animated flipInY" x-placement="start-left">
                                         <div class="d-flex no-block align-items-center p-10 bg-primary text-white">ACTION</div>
                                         
