@@ -44,6 +44,7 @@ class SalesOrders extends MY_Controller{
         $this->data['expenseList'] = $this->expenseMaster->getActiveExpenseList(2);
         $this->data['brandList'] = $this->selectOption->getSelectOptionList(['type'=>8]);
         $this->data['termsList'] = $this->terms->getTermsList(['type'=>$this->TERMS_TYPES["14"]]);
+        $this->data['transportList'] = $this->transport->getTransportList();        
         $this->load->view($this->form,$this->data);
     }
 
@@ -142,6 +143,7 @@ class SalesOrders extends MY_Controller{
         $this->data['expenseList'] = $this->expenseMaster->getActiveExpenseList(2);
         $this->data['termsList'] = $this->terms->getTermsList(['type'=>$this->TERMS_TYPES["14"]]);
         $this->data['brandList'] = $this->selectOption->getSelectOptionList(['type'=>8]);
+        $this->data['transportList'] = $this->transport->getTransportList();
         $this->load->view($this->form,$this->data);
     }
 
@@ -166,11 +168,12 @@ class SalesOrders extends MY_Controller{
 		$this->data['termsData'] = (!empty($dataRow->termsConditions) ? $dataRow->termsConditions: "");
         $this->data['taxList'] = $this->taxMaster->getActiveTaxList(2);
         $this->data['expenseList'] = $this->expenseMaster->getActiveExpenseList(2);
+        $this->data['transportData'] = $this->transport->getTransport(['id'=>$dataRow->transport_id]);
 		
         //$signImg = base_url('assets/uploads/signature/sign_AE002.png');
         $logo = (!empty($companyData->print_header))?base_url("assets/uploads/company_logo/".$companyData->company_logo):base_url('assets/images/logo.png');
         $this->data['letter_head'] =  (!empty($companyData->print_header))?base_url("assets/uploads/company_logo/".$companyData->print_header):base_url('assets/images/letterhead_top.png');
-       
+        
         if(!empty($data['pdf_type']) && $data['pdf_type'] == "Internal"){
             $pdfData = $this->load->view('sales_order/internal_print', $this->data, true);    //Internal Print
         }else{

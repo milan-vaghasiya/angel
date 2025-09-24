@@ -20,7 +20,7 @@
 					<div class="card-body">
 						<div class="met-profile">
 							<div class="row">
-								<div class="col-lg-9 align-self-center mb-3 mb-lg-0">
+								<div class="col-lg-5 align-self-center mb-3 mb-lg-0">
 									<div class="met-profile-main">
 										<div class="met-profile-main-pic sh-cool p-5 br-10">
 											<img src="<?=$itemImage?>" alt="" height="75" class="rounded-circle1">
@@ -42,7 +42,22 @@
 										</div>
 									</div>
 								</div>
+								
 								<div class="col-lg-3">
+									<select name="copy_product" id="copy_product" class="form-control select2">
+										<option value="">Product</option>
+										<?php
+											if (!empty($productList)):
+												foreach ($productList as $row):
+													echo '<option value="'.$row->id.'">'.$row->item_code.' - '.$row->item_name.'</option>';
+												endforeach;
+											endif;
+										?>
+									</select>
+								</div>
+
+								<div class="col-lg-4">
+									<button type="button" class="btn btn-warning float-left"><i class="fas fa-copy"></i> Copy Product</button>
 									<a href="<?= base_url($headData->controller.'/list/1') ?>" class="btn waves-effect waves-light btn-dark float-right"><i class="fa fa-arrow-left"></i> Back</a>
 									<a class="btn waves-effect waves-light btn-success float-right mr-2 permission-modify" type="button" href="javascript:void(0)" onclick="modalAction(<?=$editParam?>);"><i class="mdi mdi-square-edit-outline"></i> Edit</a>
 									<a href="<?= base_url($headData->controller.'/productOptionPrint/'.$itemData->id)?>" type="button" class="btn waves-effect waves-light btn-primary float-right mr-2" target="_blank"><i class="fas fa-print"></i> BOM Print</a>

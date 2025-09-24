@@ -87,7 +87,7 @@
                                             </select>
                                         </div>
 
-                                        <div class="col-md-3 form-group">
+                                        <div class="col-md-2 form-group">
                                             <label for="gst_type">GST Type</label>
                                             <select name="gst_type" id="gst_type" class="form-control">
                                                 <option value="1" <?=(!empty($dataRow->gst_type) && $dataRow->gst_type == 1)?"selected":""?>>Local</option>
@@ -96,7 +96,7 @@
                                             </select>
                                         </div>
 										
-										<div class="col-md-3 form-group">
+										<div class="col-md-2 form-group">
                                             <label for="currency">Currency</label>
                                             <input type="text"  id="currency" class="form-control" value="<?=(!empty($dataRow->currency))?$dataRow->currency:""?>"readOnly>
                                         </div>
@@ -106,9 +106,24 @@
                                             <input type="text" name="doc_no" id="doc_no" class="form-control" value="<?=(!empty($dataRow->doc_no))?$dataRow->doc_no:""?>">
                                         </div>
 
-                                        <div class="col-md-3 form-group">
+                                        <div class="col-md-2 form-group">
                                             <label for="doc_date">Cust. PO. Date</label>
                                             <input type="date" name="doc_date" id="doc_date" class="form-control" value="<?=(!empty($dataRow->doc_date))?$dataRow->doc_date:getFyDate()?>">
+                                        </div>
+
+                                        <div class="col-md-3 form-group">
+                                            <label for="transport_id">Transport</label>
+                                            <select name="transport_id" id="transport_id" class="form-control select2">
+                                                <option value="">Select Transport</option>
+                                                <?php
+                                                    if(!empty($transportList)):
+                                                        foreach($transportList as $row):
+                                                            $selected = ($dataRow->transport_id == $row->id)?"selected":"";
+                                                            echo '<option value="'.$row->id.'" '.$selected.'>'.$row->transport_name.(!empty($row->address)?" (".$row->address.")" : "").'</option>';
+                                                        endforeach;
+                                                    endif;
+                                                ?>
+                                            </select>
                                         </div>
                                         
                                     </div>

@@ -308,14 +308,14 @@ function getSalesOrderData($data){
     //So Print
     $printBtn = '<a class="btn btn-success btn-edit permission-approve1" href="'.base_url('salesOrders/printOrder/'.encodeurl($print1)).'" target="_blank" datatip="Print" flow="down"><i class="fas fa-print" ></i></a>';
     //Internal Print
-    $printInternalBtn = '<a class="btn btn-primary btn-edit permission-approve1" href="'.base_url('salesOrders/printOrder/'.encodeurl($print2)).'" target="_blank" datatip="Print Internal" flow="down"><i class="fas fa-print" ></i></a>';
+    // $printInternalBtn = '<a class="btn btn-primary btn-edit permission-approve1" href="'.base_url('salesOrders/printOrder/'.encodeurl($print2)).'" target="_blank" datatip="Print Internal" flow="down"><i class="fas fa-print" ></i></a>';
 
     // $acceptButton = '';
     // if($data->sales_executive == $data->party_id):
     //     $acceptButton = '<a class="btn btn-success btn-edit permission-modify" href="'.base_url('salesOrders/edit/'.$data->id.'/1').'" datatip="Accept Order" flow="down" ><i class="ti-check"></i></a>';
     // endif;
 
-    $action = getActionButton($approveBtn.$rejectBtn.$shortClose.$reOpenBtn.$printBtn.$printInternalBtn.$editButton.$deleteButton);
+    $action = getActionButton($approveBtn.$rejectBtn.$shortClose.$reOpenBtn.$printBtn.$editButton.$deleteButton);
 
 	$poDetail = "";
 	if(!empty($data->doc_no)){$poDetail = $data->doc_no.'<br><small>('.$data->doc_date.')</small>';}

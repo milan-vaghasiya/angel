@@ -12,7 +12,7 @@
                 <input type="text" name="transport_id" class="form-control req" value="<?=(!empty($dataRow->transport_id))?$dataRow->transport_id:""; ?>" />
             </div>
             <div class="col-md-12 form-group">
-                <label for="address">Address</label>
+                <label for="address">Address (Booking Area)</label>
                 <textarea name="address" id="address" class="form-control"><?=(!empty($dataRow->address))?$dataRow->address:""?></textarea>
             </div>
         </div>

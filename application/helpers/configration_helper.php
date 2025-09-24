@@ -15,7 +15,7 @@ function getConfigDtHeader($page){
 	$data['transport'][] = ["name"=>"#","class"=>"text-center no_filter","sortable"=>FALSE];
     $data['transport'][] = ["name"=>"Transport Name"];
     $data['transport'][] = ["name"=>"Transport ID"];
-    $data['transport'][] = ["name"=>"Address"];
+    $data['transport'][] = ["name"=>"Address (Booking Area)"];
 
     /* HSN Master header */
     $data['hsnMaster'][] = ["name"=>"Action","class"=>"text-center no_filter noExport","sortable"=>FALSE];

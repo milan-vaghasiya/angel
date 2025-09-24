@@ -215,7 +215,7 @@ class SalesOrderModel extends MasterModel{
 	public function getSalesOrderItems($data=[]){
         $queryData = array();
         $queryData['tableName'] = $this->soTrans;
-        $queryData['select'] = "so_trans.*,tmref.trans_number as ref_number,item_master.item_name,item_master.wt_pcs,item_master.hsn_code,item_master.uom,item_master.item_code,item_master.cut_weight,material_master.material_grade,ecn_master.rev_no,ecn_master.cust_rev_no,ecn_master.drw_no,item_master.mfg_type,select_master.label as brand_name,item_master.description";
+        $queryData['select'] = "so_trans.*,tmref.trans_number as ref_number,item_master.item_name,item_master.wt_pcs,item_master.hsn_code,item_master.uom,item_master.item_code,item_master.cut_weight,material_master.material_grade,ecn_master.rev_no,ecn_master.cust_rev_no,ecn_master.drw_no,item_master.mfg_type,select_master.label as brand_name";
 		$queryData['leftJoin']['sq_trans as tcref'] = "tcref.id = so_trans.ref_id";
         $queryData['leftJoin']['sq_master as tmref'] = "tcref.trans_main_id = tmref.id";
         $queryData['leftJoin']['item_master'] = "item_master.id = so_trans.item_id";

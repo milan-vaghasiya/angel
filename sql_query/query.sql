@@ -5,3 +5,6 @@ update `temp_stock` set category_id = 12 WHERE `item_type` = 1;
 update `temp_stock` set category_id = 13 WHERE `item_type` = 3;
 update `temp_stock` set category_id = 14 WHERE `item_type` = 2;
 update `temp_stock` set category_id = 15 WHERE `item_type` = 9;
+
+--Milan v 24-06-2025--
+ALTER TABLE `so_master` ADD `transport_id` INT NULL DEFAULT NULL AFTER `ref_id`;

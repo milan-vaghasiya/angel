@@ -77,15 +77,13 @@
 									$mfg_type = (!empty($row->mfgType)) ? '<br><small><b>Mfg. Type: </b>'.$row->mfg_type.'</small>' : '';
 									$total_weight = $row->wt_pcs * $row->qty;
                                     $rev_no = ($row->cust_rev_no!="")?'<br><b>Cust. Rev No: </b>.'.$row->cust_rev_no.', <b>Drw No: </b>'.$row->drw_no:'';
-                                    $gst = ($row->gst_per!="")?'<br><small><b>GST: </b>'.$row->gst_per.'%</small>':'';
-                                    $description = ($row->description!="")?'<br><small><b>Description: </b>'.$row->description.'</small>':'';
 
 									$rowspan = (!empty($row->item_remark) ? '2': '1');
 									
 									echo '<tr>';
                                         echo '<td class="text-center" rowspan="'.$rowspan.'">'.$i++.'</td>';
                                         echo '<td class="text-center">'.$row->item_code.'</td>';
-                                        echo '<td>'.$row->item_name.$indent.$rev_no.$mfg_type.$delivery_date.$gst.$description.'</td>';
+                                        echo '<td>'.$row->item_name.$indent.$rev_no.$mfg_type.$delivery_date.'</td>';
                                         echo '<td class="text-center">'.$row->brand_name.'</td>';
                                         echo '<td class="text-center">'.$row->hsn_code.'</td>';
                                         echo '<td class="text-right">'.sprintf('%0.2f',$row->qty).'</td>';

@@ -27,12 +27,18 @@
                     <tr >
                         <td rowspan="4" style="width:67%;vertical-align:top;">
                             <b>M/S. <?=$dataRow->party_name?></b><br>
+                            <?php
+                                if(!empty($dataRow->transport_id)){
+                                    echo "<b>Transport :</b> ".$transportData->transport_name. (!empty($transportData->address) ? ' ('.$transportData->address.')' : '')."<br>";
+                                }
+                            ?>
+                            
                             <?=(!empty($partyData->party_address) ? $partyData->party_address ." ".$partyData->party_pincode : '')?><br>
                             <b>City : </b><?= $partyData->city_name?> <b>State : </b><?=$partyData->state_name ?> <b>Country : </b><?=$partyData->country_name ?><br><br>
 							
                             <b>Kind. Attn. : <?=$partyData->contact_person?></b> <br>
                             Contact No. : <?=$partyData->party_mobile?><br>
-                            Email : <?=$partyData->party_email?><br><br>
+                            Email : <?=$partyData->party_email?><br>
                             GSTIN : <?=$partyData->gstin?>
                         </td>
                         <td>
@@ -63,8 +69,11 @@
                         <th class="text-left" style="min-width:100px;">Item Description</th>
                         <th style="width:50px;">Brand</th>
                         <th style="width:50px;" >HSN/SAC</th>
+                        <th style="width:50px;" >GST(%)</th>
+                        <th style="width:80px;" >Delivery Date</th>
                         <th style="width:50px;">Qty<small>(NOS)</small></th>
                         <th style="width:80px;">Rate<small>(<?=$partyData->currency?>)</small></th>
+                        <th style="width:80px;">Discount(%)</th>
                         <th style="width:50px;">Taxable Amount<small>(<?=$partyData->currency?>)</small></th>
                     </tr>
                     <tbody>
@@ -73,26 +82,26 @@
                             if(!empty($dataRow->itemList)):
                                 foreach($dataRow->itemList as $row):
                                     $indent = (!empty($row->ref_id)) ? '<br>Reference No:'.$row->ref_number : '';
-                                    $delivery_date = (!empty($row->cod_date)) ? '<br><small><b>Delivery Date: </b>'.formatDate($row->cod_date).'</small>' : '';
 									$mfg_type = (!empty($row->mfgType)) ? '<br><small><b>Mfg. Type: </b>'.$row->mfg_type.'</small>' : '';
 									$total_weight = $row->wt_pcs * $row->qty;
                                     $rev_no = ($row->cust_rev_no!="")?'<br><b>Cust. Rev No: </b>'.$row->cust_rev_no.', <b>Drw No: </b>'.$row->drw_no:'';
-                                    $gst = ($row->gst_per!="")?'<br><small><b>GST: </b>'.$row->gst_per.'%</small>':'';
-                                    $description = ($row->description!="")?'<br><small><b>Description: </b>'.$row->description.'</small>':'';
-
-									$rowspan = (!empty($row->item_remark) ? '2': '1');
+									
+                                    $rowspan = (!empty($row->item_remark) ? '2': '1');
 									
 									echo '<tr>';
                                         echo '<td class="text-center" rowspan="'.$rowspan.'">'.$i++.'</td>';
                                         echo '<td class="text-center">'.$row->item_code.'</td>';
-                                        echo '<td>'.$row->item_name.$indent.$rev_no.$mfg_type.$delivery_date.$gst.$description.'</td>';
+                                        echo '<td>'.$row->item_name.$indent.$rev_no.$mfg_type.'</td>';
                                         echo '<td class="text-center">'.$row->brand_name.'</td>';
                                         echo '<td class="text-center">'.$row->hsn_code.'</td>';
+                                        echo '<td class="text-center">'.(floatVal($row->gst_per) ?? '').'</td>';
+                                        echo '<td class="text-center">'.(!empty($row->cod_date) ? formatDate($row->cod_date) : '').'</td>';
                                         echo '<td class="text-right">'.sprintf('%0.2f',$row->qty).'</td>';
                                         echo '<td class="text-center">'.moneyFormatIndia($row->price).'</td>';
+                                        echo '<td class="text-center">'.(!empty($row->disc_per) ? $row->disc_per : '').'</td>';
                                         echo '<td class="text-right" rowspan="'.$rowspan.'">'.moneyFormatIndia($row->taxable_amount).'</td>';
                                     echo '</tr>';
-                                    echo (!empty($row->item_remark)) ? '<tr><td colspan="6"><b>Notes : </b>'.$row->item_remark.'</td></tr>' : '';
+                                    echo (!empty($row->item_remark)) ? '<tr><td colspan="9"><b>Notes : </b>'.$row->item_remark.'</td></tr>' : '';
                                     $totalQty += $row->qty;
                                 endforeach;
                             endif;
@@ -109,13 +118,17 @@
                                         <td style="border-top:none;border-bottom:none;"></td>
                                         <td style="border-top:none;border-bottom:none;"></td>
                                         <td style="border-top:none;border-bottom:none;"></td>
+                                        <td style="border-top:none;border-bottom:none;"></td>
+                                        <td style="border-top:none;border-bottom:none;"></td>
+                                        <td style="border-top:none;border-bottom:none;"></td>
                                     </tr>';
                                 endfor;
                             endif;
                         ?>
                         <tr>
-                            <th colspan="5" class="text-right">Total Qty.</th>
+                            <th colspan="7" class="text-right">Total Qty.</th>
                             <th class="text-right"><?=sprintf('%.3f',$totalQty)?></th>
+                            <th class="text-right"></th>
                             <th class="text-right">Sub Total</th>
                             <th class="text-right"><?=moneyFormatIndia(sprintf('%.2f',$dataRow->taxable_amount))?></th>
                             
@@ -175,7 +188,7 @@
 							$fixRwSpan = (!empty($rwspan))?3:0;
 						?>
 						<tr>
-							<th class="text-left" colspan="6" rowspan="<?=$rwspan?>">
+							<th class="text-left" colspan="9" rowspan="<?=$rwspan?>">
 								<b>Note: </b> <?= $dataRow->remark?>
 							</th>
 
@@ -187,7 +200,7 @@
 						</tr>
 						<?=$beforExp.$taxHtml.$afterExp?>
 						<tr>
-							<th class="text-left" colspan="6" rowspan="3">
+							<th class="text-left" colspan="9" rowspan="3">
 								Amount In Words (<?=$partyData->currency?>): <br><?=numToWordEnglish(sprintf('%.2f',$dataRow->net_amount))?>
 							</th>
 
