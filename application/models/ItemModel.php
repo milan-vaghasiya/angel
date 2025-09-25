@@ -474,7 +474,7 @@ class ItemModel extends MasterModel{
 
     public function getProductProcessList($param = []){
 		$queryData['tableName'] = $this->productProcess;
-		$queryData['select'] = "product_process.id, product_process.item_id, product_process.process_id, product_process.cycle_time, product_process.finish_wt, product_process.sequence,process_master.process_name,product_process.process_cost,product_process.mfg_instruction,product_process.output_qty,product_process.uom,product_process.drawing_file,product_process.process_no";
+		$queryData['select'] = "product_process.id, product_process.item_id, product_process.process_id, product_process.cycle_time, product_process.finish_wt, product_process.sequence,process_master.process_name,product_process.process_cost,product_process.mfg_instruction,product_process.output_qty,product_process.uom,product_process.drawing_file,product_process.process_no,product_process.conv_ratio,product_process.is_split";
 		$queryData['join']['process_master'] = "process_master.id = product_process.process_id";
 		if(!empty($param['process_cost_sum'])){
 			$queryData['select'] .= ',SUM(product_process.process_cost) AS total_process_cost';
@@ -1085,5 +1085,51 @@ class ItemModel extends MasterModel{
         $queryData['resultType'] = "numRows";
         return $this->specificRow($queryData);
     }
+
+	public function saveCopyProduct($data){
+		try{
+            $this->db->trans_begin();
+				$getProductProcess = $this->getProductProcessList(['item_id' => $data['from_item_id']]);
+				
+				if(empty($getProductProcess)){
+					$errorMessage['from_item_id'] = "Process not available.";
+					return ['status'=>2,'message'=>$errorMessage];
+				}
+
+				//Remove existing process
+				$this->trash($this->productProcess,['item_id' => $data['to_item_id']]); 
+
+				foreach($getProductProcess as $row){
+					$processData = [
+						'id' => '',
+						'item_id' => $data['to_item_id'],
+						'process_id' => $row->process_id,
+						'cycle_time' => $row->cycle_time,
+						'finish_wt' => $row->finish_wt,
+						'process_cost' => $row->process_cost,
+						'mfg_instruction' => $row->mfg_instruction,
+						'output_qty' => $row->output_qty,
+						'uom' => $row->uom,
+						'drawing_file' => $row->drawing_file,
+						'process_no' => $row->process_no,
+						'sequence' => $row->sequence,
+						'conv_ratio' => $row->conv_ratio,
+						'is_split' => $row->is_split,
+						'created_by' => $this->session->userdata('loginId')
+					];
+					$this->store($this->productProcess,$processData);
+				}
+    
+    			$result = ['status'=>1,'message'=>'Product copied successfully.'];
+
+    		if ($this->db->trans_status() !== FALSE):
+    			$this->db->trans_commit();
+    			return $result;
+    		endif;
+    	}catch(\Exception $e){
+    		$this->db->trans_rollback();
+    	    return ['status'=>2,'message'=>"somthing is wrong. Error : ".$e->getMessage()];
+    	}	
+	}
 }
 ?>

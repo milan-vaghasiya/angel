@@ -11,6 +11,7 @@
 	endif;
 	$mfgType = (!empty($itemData->mfg_type) ? ' ( '.$itemData->mfg_type.' )' : ''); 
 	$editParam = "{'postData':{'id' : ".$itemData->id."},'modal_id' : 'bs-right-lg-modal', 'form_id' : 'editItem', 'title' : 'Update Finish Goods','call_function':'edit'}";    
+	$copyParam = "{'postData':{'id' : ".$itemData->id.",'item_type' : ".$itemData->item_type."},'modal_id' : 'bs-right-lg-modal', 'form_id' : 'copyItem', 'title' : 'Copy Item','call_function':'copyProduct','fnsave':'saveCopyProduct'}";    
 ?>
 <div class="page-content-tab">
 	<div class="container-fluid">
@@ -43,24 +44,12 @@
 									</div>
 								</div>
 								
-								<div class="col-lg-3">
-									<select name="copy_product" id="copy_product" class="form-control select2">
-										<option value="">Product</option>
-										<?php
-											if (!empty($productList)):
-												foreach ($productList as $row):
-													echo '<option value="'.$row->id.'">'.$row->item_code.' - '.$row->item_name.'</option>';
-												endforeach;
-											endif;
-										?>
-									</select>
-								</div>
-
-								<div class="col-lg-4">
-									<button type="button" class="btn btn-warning float-left"><i class="fas fa-copy"></i> Copy Product</button>
+								<div class="col-lg-7">
 									<a href="<?= base_url($headData->controller.'/list/1') ?>" class="btn waves-effect waves-light btn-dark float-right"><i class="fa fa-arrow-left"></i> Back</a>
 									<a class="btn waves-effect waves-light btn-success float-right mr-2 permission-modify" type="button" href="javascript:void(0)" onclick="modalAction(<?=$editParam?>);"><i class="mdi mdi-square-edit-outline"></i> Edit</a>
 									<a href="<?= base_url($headData->controller.'/productOptionPrint/'.$itemData->id)?>" type="button" class="btn waves-effect waves-light btn-primary float-right mr-2" target="_blank"><i class="fas fa-print"></i> BOM Print</a>
+
+									<a href="javascript:void(0)" type="button" class="btn waves-effect waves-light btn-success float-right mr-2" onclick="modalAction(<?=$copyParam?>);"><i class="fas fa-copy"></i> Copy Item</a>
 								</div>
 							</div>
 						</div>

@@ -18,6 +18,7 @@ class Items extends MY_Controller{
     private $dieBlockForm = "item_master/die_blocks_form";
 	private $packingForm = "item_master/packing_form";
 	private $assetsForm = "item_master/assets_form";
+	private $itemCopyForm = "item_master/item_copy_form";
 
     public function __construct(){
 		parent::__construct();
@@ -1242,7 +1243,7 @@ class Items extends MY_Controller{
         
         $this->data['revisionList'] = $this->ecn->getItemRevision(['item_id'=>$item_id]);
 		$this->data['machineList'] = $this->itemCategory->getCategoryList(['category_type'=>5, 'final_category'=>1]);
-		$this->data['tcSpecification'] = $this->item->getTcSpecificationData(['item_id'=>$item_id]);
+		$this->data['tcSpecification'] = $this->item->getTcSpecificationData(['item_id'=>$item_id]);        
         $this->load->view('item_master/item_details',$this->data);
     }
 
@@ -1887,5 +1888,28 @@ class Items extends MY_Controller{
         endif;
     }
 	/** End Tool Bom*/
+
+    /* Copy Product Process */
+    public function copyProduct(){
+        $data = $this->input->post();
+        $this->data['to_item_id'] = $data['id'];
+        $this->data['productList'] = $this->item->getItemList(['item_type'=>$data['item_type'],'not_ids' => $data['id']]);
+
+        $this->load->view($this->itemCopyForm,$this->data);
+    }
+    public function saveCopyProduct(){
+        $data = $this->input->post();
+        $errorMessage = array();
+
+        if(empty($data['from_item_id'])){
+            $errorMessage['from_item_id'] = "Item is required.";
+        }
+
+        if(!empty($errorMessage)):
+            $this->printJson(['status'=>2,'message'=>$errorMessage]);
+        else:
+            $this->printJson($this->item->saveCopyProduct($data));
+        endif;
+    }
 }
 ?>
